@@ -1,5 +1,7 @@
 #include <Servo.h>
 
+#define MAX_DISTANCE_RANGE 50
+
 int triger_pin = 2;
 int echo_pin = 4;
 long prev_duration = 0;
@@ -15,7 +17,6 @@ void setup() {
 }
 
 void loop() {
-  delay(1000);
 
    for(angle= 90; angle >= 1; angle -= 1)     
   {                                  
@@ -23,13 +24,13 @@ void loop() {
     current_duration = get_duration();
     distance_cm = current_duration/29/2;
 //    Serial.print(distance_cm);
-    if(prev_duration < current_duration && distance_cm < 100) {
+    if(prev_duration < current_duration && distance_cm < MAX_DISTANCE_RANGE) {
        Serial.print(angle);
        Serial.print(" ,");
        Serial.print(distance_cm);
        Serial.println();
-       prev_duration = current_duration;
-      };                       
+      }
+      prev_duration = current_duration;                       
   } 
   
    for(angle=0; angle <= 90; angle += 1)     
@@ -38,14 +39,15 @@ void loop() {
     current_duration = get_duration();
     distance_cm = current_duration/29/2;
 //    Serial.print(distance_cm);
-    if(prev_duration > current_duration && distance_cm < 100 ) {
+    if(prev_duration > current_duration && distance_cm < MAX_DISTANCE_RANGE ) {
        Serial.print(angle);
        Serial.print(" ,");
        distance_cm = current_duration/29/2;
        Serial.print(distance_cm);
        Serial.println();
-       prev_duration = current_duration;
-      };                       
+      
+      }
+       prev_duration = current_duration;                       
   } 
   delay(1000);
 }
@@ -62,6 +64,6 @@ long get_duration() {
   duration = pulseIn(echo_pin,HIGH);
 //  Serial.print(duration);
 //  Serial.println();
-  delay(100);
+  delay(15);
   return duration;
 }
