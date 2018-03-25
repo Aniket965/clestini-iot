@@ -21,15 +21,31 @@ void loop() {
   {                                  
     servo.write(angle);
     current_duration = get_duration();
-    if(prev_duration < current_duration)) {
+    distance_cm = current_duration/29/2;
+//    Serial.print(distance_cm);
+    if(prev_duration < current_duration && distance_cm < 100) {
+       Serial.print(angle);
+       Serial.print(" ,");
+       Serial.print(distance_cm);
+       Serial.println();
+       prev_duration = current_duration;
+      };                       
+  } 
+  
+   for(angle=0; angle <= 90; angle += 1)     
+  {                                  
+    servo.write(angle);
+    current_duration = get_duration();
+    distance_cm = current_duration/29/2;
+//    Serial.print(distance_cm);
+    if(prev_duration > current_duration && distance_cm < 100 ) {
        Serial.print(angle);
        Serial.print(" ,");
        distance_cm = current_duration/29/2;
        Serial.print(distance_cm);
        Serial.println();
-      }
-    get_duration();
-    delay(100);                       
+       prev_duration = current_duration;
+      };                       
   } 
   delay(1000);
 }
@@ -44,9 +60,8 @@ long get_duration() {
   digitalWrite(triger_pin,LOW);
   pinMode(echo_pin,INPUT);
   duration = pulseIn(echo_pin,HIGH);
-  Serial.print(duration);
-  Serial.println();
+//  Serial.print(duration);
+//  Serial.println();
   delay(100);
   return duration;
 }
-
