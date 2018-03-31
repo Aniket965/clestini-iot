@@ -1,5 +1,7 @@
 # clestini-iot
 This contains the code for touch detection using SONAR system designed using Arduino UNO and Ulrasonic sensor and servo motor.
+The Celestini directory contains the C++ code for Questions 2 and 3 of the take home assignment.
+
 > To find angle we will be using servo motor to find shortest distance at which the object is placed(while moving the ultrasound sensor slowly from 0 to 90 degree using servo), as shortest distance from ultrasound sensor, the object will be perpendicular to the ultrasound sensor we can then calculate angle thus we can find the angle at which ultrasound is perpendicular thus we can find by how much angle sensor has rotated.
 
 ----
