@@ -29,7 +29,7 @@ void loop() {
 
     if(prev_duration < current_duration && distance_cm < MAX_DISTANCE_RANGE) {
 
-       Serial.print(Cangle(angle));
+       Serial.print(angle_from_vertical(angle));
 
        Serial.print(" ,");
 
@@ -37,7 +37,7 @@ void loop() {
 
        Serial.print(",");
 
-       Serial.print(get_y_distance(to_radian(Cangle(angle)),distance_cm));
+       Serial.print(get_y_distance(to_radian(angle_from_vertical(angle)),distance_cm));
 
        Serial.println();
 
