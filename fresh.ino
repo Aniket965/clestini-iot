@@ -1,47 +1,28 @@
 #include <Servo.h>
 
-
-
 #define MAX_DISTANCE_RANGE 50
 
-
-
 int triger_pin = 2;
-
 int echo_pin = 4;
 
 long prev_duration = 0;
-
 long current_duration = 0;
 
 float distance_cm = 0; 
-
 int angle = 0;
-
-
-
 Servo servo;
 
-
-
 void setup() {
-
   Serial.begin(9600);
-
   servo.attach(9);
-
 }
 
 
 
 void loop() {
 
-   for(angle= 90; angle >= 1; angle -= 1)     
-
-  {                                  
-
+   for(angle= 90; angle >= 1; angle -= 1){                                  
     servo.write(angle);
-
     current_duration = get_duration();
 
     distance_cm = current_duration/29/2;
@@ -71,37 +52,30 @@ void loop() {
 }
 
 
-
+/**
+ * it returns the duration after hitting the object
+ */
 long get_duration() {
-
   long duration;
-
-  pinMode(triger_pin,OUTPUT);  
-
+  pinMode(triger_pin,OUTPUT);
   digitalWrite(triger_pin,LOW);
-
+  
   delayMicroseconds(2);
-
   digitalWrite(triger_pin,HIGH);
-
   delayMicroseconds(10);
-
   digitalWrite(triger_pin,LOW);
-
   pinMode(echo_pin,INPUT);
-
   duration = pulseIn(echo_pin,HIGH);
-
   delay(15);
-
   return duration;
 
 }
 
-
+/**
+ * Converts angle into Radian
+ */
 
 float to_radian(int angle) {
-
   return (PI/180) * angle;
 
 }
@@ -109,9 +83,7 @@ float to_radian(int angle) {
 
 
 /*
-
  * To find  y cordinate we have do x * tan(angle)
-
  */
 
 float get_y_distance(float radian,float x_distance) {
@@ -122,10 +94,10 @@ float get_y_distance(float radian,float x_distance) {
 
 
 
+/*
+ * returns the absolute angle from vertical 
+ */
 
-
-long Cangle(long angle) {
-
+long angle_from_vertical(long angle) {
    return abs(angle - 45);
-
 }
